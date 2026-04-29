@@ -5,193 +5,145 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Tabuada</title>
     <style>
-      :root {
-        --bg: #f4f7ff;
-        --surface: #ffffff;
-        --text: #0f172a;
-        --muted: #64748b;
-        --line: rgba(15, 23, 42, 0.12);
-        --blue: #2563eb;
-        --radius: 12px;
-        --shadow: 0 16px 40px rgba(2, 6, 23, 0.08);
-      }
-
-      * { box-sizing: border-box; }
-
       body {
         margin: 0;
         font-family: Arial, sans-serif;
-        background: var(--bg);
-        color: var(--text);
-        line-height: 1.55;
+        background: linear-gradient(135deg, #dbeafe, #eff6ff);
+        min-height: 100vh;
       }
-
-      code {
-        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-      }
-
-      .wrap {
-        min-height: 100svh;
-        display: grid;
-        place-items: center;
-        padding: 28px 16px;
-      }
-
-      .card {
-        width: min(520px, 100%);
-        background: var(--surface);
-        border: 1px solid var(--line);
-        border-radius: var(--radius);
-        box-shadow: var(--shadow);
-        padding: 18px;
-      }
-
-      h1 {
-        margin: 0 0 6px;
-        font-size: 20px;
-        color: var(--blue);
-      }
-
-      .sub {
-        margin: 0 0 14px;
-        font-size: 13px;
-        color: var(--muted);
-      }
-
-      form {
+      .pagina {
+        min-height: 100vh;
         display: flex;
-        gap: 10px;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        padding: 24px;
+        box-sizing: border-box;
+      }
+      .caixa {
+        background: white;
+        padding: 30px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+        text-align: center;
+        width: 520px;
+        max-width: 100%;
+      }
+      h1 {
+        color: #1d4ed8;
         margin: 0 0 10px;
       }
-
+      p {
+        color: #475569;
+      }
       input {
-        flex: 1;
-        padding: 12px;
-        border: 1px solid var(--line);
-        border-radius: 10px;
+        width: 300px;
+        max-width: 100%;
+        padding: 10px 12px;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        font-size: 15px;
+        box-sizing: border-box;
         outline: none;
-        font-size: 14px;
       }
-
-      input:focus {
-        border-color: rgba(37, 99, 235, 0.6);
-        box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
-      }
-
       button {
-        padding: 12px 14px;
-        border: 1px solid rgba(37, 99, 235, 0.35);
-        background: rgba(37, 99, 235, 0.08);
-        color: #1e3a8a;
+        display: block;
+        background: #2563eb;
+        color: white;
+        border: none;
+        padding: 12px 18px;
         border-radius: 10px;
         cursor: pointer;
-        font-weight: 700;
+        font-size: 16px;
+        margin: 15px auto 0;
+        width: 200px;
+        max-width: 100%;
       }
-
-      button:hover { background: rgba(37, 99, 235, 0.12); }
-
-      .error {
-        margin: 10px 0 0;
-        padding: 10px 12px;
-        border-radius: 10px;
-        color: #991b1b;
-        border: 1px solid rgba(153, 27, 27, 0.25);
-        background: rgba(239, 68, 68, 0.08);
-        font-size: 13px;
+      button:hover {
+        background: #1e40af;
       }
-
-      .results {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-        margin-top: 14px;
-      }
-
-      .panel {
-        border: 1px solid var(--line);
-        border-radius: 10px;
-        padding: 12px;
-        background: #fbfdff;
-      }
-
-      .panel h2 {
-        margin: 0 0 8px;
-        font-size: 13px;
-        color: #1e3a8a;
-      }
-
-      ul { margin: 0; padding: 0; list-style: none; }
-
-      li {
-        display: flex;
-        justify-content: space-between;
-        gap: 10px;
-        padding: 6px 8px;
+      .erro {
+        margin: 16px 0 0;
+        padding: 10px;
+        background: #fff2f2;
+        border: 1px solid #ffd6d6;
         border-radius: 8px;
+        color: #a40000;
+        text-align: left;
       }
-
-      li:nth-child(odd) { background: rgba(15, 23, 42, 0.03); }
-
-      .eq { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; }
-
-      strong { color: #1e3a8a; }
-
-      .footer {
+      .bloco {
         margin-top: 14px;
+        padding: 12px;
+        background: #fafafa;
+        border: 1px solid #e5e5e5;
+        border-radius: 10px;
+        text-align: left;
+      }
+      .bloco h2 {
+        margin: 0 0 8px;
+        font-size: 14px;
+        color: #1d4ed8;
+      }
+      ul {
+        margin: 0;
+        padding-left: 18px;
+      }
+      li {
+        margin: 6px 0;
+      }
+      .eq {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      }
+      footer {
+        margin-top: 20px;
         text-align: center;
-        color: var(--blue);
-        font-size: 12px;
+        color: #475569;
+        font-size: 14px;
       }
-
-      .footer a {
-        color: var(--blue);
+      footer a {
+        color: #1d4ed8;
         text-decoration: none;
-        font-weight: 700;
+        font-weight: bold;
       }
-
-      .footer a:hover { text-decoration: underline; }
-
-      @media (max-width: 520px) {
-        form { flex-direction: column; }
-        button { width: 100%; }
-        .results { grid-template-columns: 1fr; }
+      @media (max-width: 560px) {
+        .caixa {
+          padding: 22px;
+        }
       }
     </style>
   </head>
   <body>
-    <main class="wrap">
-      <section class="card" aria-label="Tabuada">
+    <div class="pagina">
+      <div class="caixa">
         <h1>Tabuada</h1>
-        <p class="sub">Versão HTML + JS. Use <code>?n=7</code> na URL, se quiser.</p>
+        <p>Digite um número inteiro para gerar a tabuada (for) e os pares (while).</p>
 
         <form id="form">
           <input id="n" name="n" type="number" placeholder="Digite um número inteiro" inputmode="numeric" required />
           <button type="submit">Gerar</button>
         </form>
 
-        <p id="error" class="error" role="alert" hidden></p>
+        <p id="error" class="erro" role="alert" hidden></p>
 
-        <div class="results" aria-label="Resultados">
-          <section class="panel" aria-label="Tabuada">
-            <h2>Tabuada (for)</h2>
-            <ul id="tabuada-list"></ul>
-          </section>
-          <section class="panel" aria-label="Pares">
-            <h2>Pares (while)</h2>
-            <ul id="pares-list"></ul>
-          </section>
+        <div class="bloco">
+          <h2>Tabuada (for)</h2>
+          <ul id="tabuada-list"></ul>
+        </div>
+        <div class="bloco">
+          <h2>Pares (while)</h2>
+          <ul id="pares-list"></ul>
         </div>
 
         <noscript>
-          <p class="error">Ative o JavaScript para gerar a tabuada.</p>
+          <p class="erro">Ative o JavaScript para gerar a tabuada.</p>
         </noscript>
+      </div>
 
-        <footer class="footer">
-          Desenvolvido por
-          <a href="https://ellsouza.github.io/ellen-portfolio/" target="_blank" rel="noopener noreferrer">Ellen Souza</a>
-        </footer>
-      </section>
-    </main>
+      <footer>
+        Desenvolvido por
+        <a href="https://ellsouza.github.io/ellen-portfolio/" target="_blank" rel="noopener noreferrer">Ellen Souza</a>
+      </footer>
+    </div>
 
     <script>
       const input = document.querySelector("#n");
@@ -221,7 +173,7 @@
 
         for (let i = 1; i <= 10; i += 1) {
           const li = document.createElement("li");
-          li.innerHTML = `<span class="eq">${n} × ${i} =</span> <strong>${n * i}</strong>`;
+          li.innerHTML = `<span class="eq">${n} x ${i} =</span> <strong>${n * i}</strong>`;
           tabuadaList.appendChild(li);
         }
 
@@ -238,7 +190,7 @@
         if (typeof value !== "string") return null;
         const trimmed = value.trim();
         if (!trimmed) return null;
-        if (!/^-?\d+$/.test(trimmed)) return Number.NaN;
+        if (!/^-?\\d+$/.test(trimmed)) return Number.NaN;
         return Number.parseInt(trimmed, 10);
       };
 
@@ -280,3 +232,4 @@
     </script>
   </body>
 </html>
+
