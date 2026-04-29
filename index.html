@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tabuada</title>
+    <style>
+      * { box-sizing: border-box; }
+      body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f6; }
+      .caixa {
+        max-width: 520px;
+        margin: 40px auto;
+        padding: 16px;
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+      }
+      h1 { margin: 0 0 12px; font-size: 18px; }
+      form { display: flex; gap: 8px; margin-bottom: 12px; }
+      input {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        outline: none;
+      }
+      button {
+        padding: 10px 12px;
+        border: 1px solid #ddd;
+        background: #fff;
+        border-radius: 6px;
+        cursor: pointer;
+      }
+      .erro {
+        margin: 0 0 12px;
+        padding: 10px;
+        background: #fff2f2;
+        border: 1px solid #ffd6d6;
+        border-radius: 6px;
+        color: #a40000;
+      }
+      .bloco {
+        margin-top: 12px;
+        padding: 12px;
+        background: #fafafa;
+        border: 1px solid #e5e5e5;
+        border-radius: 6px;
+      }
+      .bloco h2 { margin: 0 0 8px; font-size: 14px; }
+      ul { margin: 0; padding-left: 18px; }
+      li { margin: 6px 0; }
+      .hint { margin: 0 0 12px; color: #666; font-size: 12px; }
+    </style>
+  </head>
+  <body>
+    <div class="caixa">
+      <h1>Tabuada (for) + Pares (while)</h1>
+      <p class="hint">Versão estática (HTML + JS). Você pode usar <code>?n=7</code> na URL.</p>
+      <form id="form">
+        <input
+          id="n"
+          name="n"
+          type="number"
+          placeholder="Digite um número"
+          inputmode="numeric"
+          required
+        />
+        <button type="submit">Gerar</button>
+      </form>
+
+      <p id="error" class="erro" hidden></p>
+
+      <div class="bloco">
+        <h2>Utilizando for: Tabuada do número</h2>
+        <ul id="tabuada-list"></ul>
+      </div>
+      <div class="bloco">
+        <h2>Utilizando while: contador é definido como 1 e multiplicado por 2</h2>
+        <ul id="pares-list"></ul>
+      </div>
+      <noscript>
+        <p class="erro">Ative o JavaScript para gerar a tabuada.</p>
+      </noscript>
+    </div>
+
+    <script>
+      const input = document.querySelector("#n");
+      const form = document.querySelector("#form");
+      const errorEl = document.querySelector("#error");
+      const tabuadaList = document.querySelector("#tabuada-list");
+      const paresList = document.querySelector("#pares-list");
+
+      const setError = (message) => {
+        if (!message) {
+          errorEl.hidden = true;
+          errorEl.textContent = "";
+          return;
+        }
+        errorEl.hidden = false;
+        errorEl.textContent = message;
+      };
+
+      const clearLists = () => {
+        tabuadaList.innerHTML = "";
+        paresList.innerHTML = "";
+      };
+
+      const render = (n) => {
+        clearLists();
+        if (n === null) return;
+
+        for (let i = 1; i <= 10; i += 1) {
+          const li = document.createElement("li");
+          li.innerHTML = `${n} x ${i} = <strong>${n * i}</strong>`;
+          tabuadaList.appendChild(li);
+        }
+
+        let contador = 1;
+        while (contador <= 10) {
+          const li = document.createElement("li");
+          li.innerHTML = `contador=${contador} → <strong>${contador * 2}</strong>`;
+          paresList.appendChild(li);
+          contador += 1;
+        }
+      };
+
+      const parseIntStrict = (value) => {
+        if (typeof value !== "string") return null;
+        const trimmed = value.trim();
+        if (!trimmed) return null;
+        if (!/^-?\d+$/.test(trimmed)) return NaN;
+        const parsed = Number.parseInt(trimmed, 10);
+        return parsed;
+      };
+
+      const loadFromUrl = () => {
+        const params = new URLSearchParams(window.location.search);
+        const nRaw = params.get("n");
+        if (!nRaw) {
+          render(null);
+          return;
+        }
+        input.value = nRaw;
+        const nParsed = parseIntStrict(nRaw);
+        if (!Number.isInteger(nParsed)) {
+          setError("Digite um número inteiro válido.");
+          render(null);
+          return;
+        }
+        setError("");
+        render(nParsed);
+      };
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const nRaw = input.value;
+        const nParsed = parseIntStrict(String(nRaw));
+        if (!Number.isInteger(nParsed)) {
+          setError("Digite um número inteiro válido.");
+          render(null);
+          return;
+        }
+        setError("");
+        const url = new URL(window.location.href);
+        url.searchParams.set("n", String(nParsed));
+        window.history.replaceState({}, "", url);
+        render(nParsed);
+      });
+
+      loadFromUrl();
+    </script>
+  </body>
+</html>
+
